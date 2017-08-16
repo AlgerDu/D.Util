@@ -12,7 +12,7 @@ namespace D.Util.Logger
     /// <summary>
     /// 封装 log4net 到自定义的接口 ILogWriter
     /// </summary>
-    public class Log4netWriter : ILogWriter
+    public class Log4netLogWriter : ILogWriter
     {
         string _guid;
 
@@ -23,7 +23,7 @@ namespace D.Util.Logger
         /// <summary>
         /// TODO 暂时还没有想到如何转入配置参数
         /// </summary>
-        public Log4netWriter(
+        public Log4netLogWriter(
             IConfig config
             )
         {
