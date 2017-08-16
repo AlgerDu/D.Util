@@ -16,4 +16,14 @@
 
 ## 日志
 
+1. 接口定义
+
+| 名称 | 是否实现 | 版本 | 作用 |
+|:---:|:---:|:---:|:---|
+| `ILogger` | `Y` | `1.0.0` | 供用户使用的日志记录器 |
+| `ILoggerFactory` | `Y` | `1.0.0` | 生成不同 `Class` 的 `ILogger` |
+| `ILogContext` | `Y` | `1.0.0` | `ILogger` 生成的一条日志 |
+| `ILoggerWriter` | `Y` | `1.0.0` | 将 `ILogContext` 记录在不同的位置 |
+| `ILogFormat` | `N` | `1.1.0` | `ILoggerWriter` 记录 `ILogContext` 使用的格式 |
+
 ## 配置
