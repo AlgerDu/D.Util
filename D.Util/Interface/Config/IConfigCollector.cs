@@ -12,7 +12,7 @@ namespace D.Util.Interface
     public interface IConfigCollector
     {
         /// <summary>
-        /// 创建一个配置提供者，不是同一个实例（TODO 暂定）
+        /// 创建一个配置提供者，同一个实例（TODO 暂定）
         /// </summary>
         /// <returns></returns>
         IConfigProvider CreateProvider();
