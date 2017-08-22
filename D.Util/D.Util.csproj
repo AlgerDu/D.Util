@@ -40,20 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\NullConfigProvider.cs" />
     <Compile Include="Event\BaseEvent.cs" />
     <Compile Include="Event\EventBus.cs" />
     <Compile Include="Interface\Config\IConfig.cs" />
     <Compile Include="Interface\Config\IConfigCollector.cs" />
+    <Compile Include="Interface\Config\IConfigLoader.cs" />
     <Compile Include="Interface\Config\IConfigProvider.cs" />
     <Compile Include="Interface\IConfig.cs" />
     <Compile Include="Interface\IConfigItem.cs" />
     <Compile Include="Interface\IEvent.cs" />
     <Compile Include="Interface\IEventBus.cs" />
     <Compile Include="Interface\IEventHandler.cs" />
-    <Compile Include="Interface\ILogContext.cs" />
-    <Compile Include="Interface\ILogger.cs" />
-    <Compile Include="Interface\ILoggerFactory.cs" />
-    <Compile Include="Interface\ILogWriter.cs" />
+    <Compile Include="Interface\Logger\ILogContext.cs" />
+    <Compile Include="Interface\Logger\ILogger.cs" />
+    <Compile Include="Interface\Logger\ILoggerFactory.cs" />
+    <Compile Include="Interface\Logger\ILogWriter.cs" />
     <Compile Include="Interface\IMapper.cs" />
     <Compile Include="Logger\CommonConfig.cs" />
     <Compile Include="Logger\ConsoleLogWriter.cs" />
