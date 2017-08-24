@@ -11,5 +11,9 @@ namespace D.Util.Interface.Config
     /// </summary>
     public interface IConfig
     {
+        /// <summary>
+        /// 类似 xml 中的 path
+        /// </summary>
+        string Path { get; }
     }
 }
