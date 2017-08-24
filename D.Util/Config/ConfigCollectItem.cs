@@ -22,5 +22,15 @@ namespace D.Util.Config
         public IConfigLoader FromeLoader { get; set; }
 
         public IConfig ConfigData { get; set; }
+
+        public static bool operator ==(ConfigCollectItem l, ConfigCollectItem r)
+        {
+            return l.Path == r.Path && l.InstanceName == l.InstanceName;
+        }
+
+        public static bool operator !=(ConfigCollectItem l, ConfigCollectItem r)
+        {
+            return l.Path != r.Path || l.InstanceName != r.InstanceName;
+        }
     }
 }

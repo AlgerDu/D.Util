@@ -27,7 +27,29 @@ namespace D.Util.Config
 
         public void CollectConfig(IConfig config, string instanceName = null)
         {
-            throw new NotImplementedException();
+            var newItem = new ConfigCollectItem
+            {
+                ConfigData = config,
+                FromeLoader = null,
+                InstanceName = instanceName
+            };
+
+            var findItems = _collectItems.Where(o => o == newItem);
+
+            if (findItems.Count() > 1)
+            {
+                throw new Exception($"ConfigCollector CollectConfig {findItems.Count()}");
+            }
+            else if (findItems.Count() == 1)
+            {
+                _collectItems.Remove(findItems.FirstOrDefault());
+
+                _collectItems.Add(newItem);
+            }
+            else
+            {
+                _collectItems.Add(newItem);
+            }
         }
 
         public IConfigProvider CreateProvider()
