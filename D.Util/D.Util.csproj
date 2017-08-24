@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Config\ConfigCollector.cs" />
     <Compile Include="Config\ConfigCollectItem.cs" />
+    <Compile Include="Config\ConfigProvider.cs" />
     <Compile Include="Config\NullConfigProvider.cs" />
     <Compile Include="Event\BaseEvent.cs" />
     <Compile Include="Event\EventBus.cs" />

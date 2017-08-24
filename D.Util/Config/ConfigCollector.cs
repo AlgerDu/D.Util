@@ -13,10 +13,12 @@ namespace D.Util.Config
     public class ConfigCollector : IConfigCollector
     {
         List<ConfigCollectItem> _collectItems;
+        List<IConfigLoader> _configLoaders;
 
         public ConfigCollector()
         {
             _collectItems = new List<ConfigCollectItem>();
+            _configLoaders = new List<IConfigLoader>();
         }
 
         #region IConfigCollector 接口实现
@@ -25,6 +27,11 @@ namespace D.Util.Config
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 手动向收集器中加入配置对象
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="instanceName"></param>
         public void CollectConfig(IConfig config, string instanceName = null)
         {
             var newItem = new ConfigCollectItem
@@ -54,7 +61,7 @@ namespace D.Util.Config
 
         public IConfigProvider CreateProvider()
         {
-            throw new NotImplementedException();
+            return new ConfigProvider(_collectItems, _configLoaders);
         }
         #endregion
     }

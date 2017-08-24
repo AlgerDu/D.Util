@@ -17,6 +17,6 @@ namespace D.Util.Interface
         /// <typeparam name="T">具体的配置类</typeparam>
         /// <param name="instanceName">实例名</param>
         /// <returns></returns>
-        T GetConfig<T>(string instanceName = null) where T : class, IConfig;
+        T GetConfig<T>(string instanceName = null) where T : class, IConfig, new;
     }
 }
