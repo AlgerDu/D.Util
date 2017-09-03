@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace D.Util.Interface.Config
+namespace D.Util.Interface
 {
     /// <summary>
     /// 配置

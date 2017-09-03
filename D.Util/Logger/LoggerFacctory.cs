@@ -14,18 +14,18 @@ namespace D.Util.Logger
     {
         const LogLevel _defaultLevel = LogLevel.trce;
 
-        CommonConfig _config;
+        LoggerConfig _config;
 
         ILogWriter[] _writers;
         Dictionary<Type, ILogger> _records = new Dictionary<Type, ILogger>();
 
         public LoggerFactory(
             ILogWriter[] writers
-            , IConfig config
+            , IConfigProvider configProvider
             )
         {
             _writers = writers;
-            _config = config.GetItem<CommonConfig>();
+            _config = configProvider.GetConfigNullWithDefault<LoggerConfig>();
         }
 
         public ILogger CreateLogger<T>(LogLevel level = LogLevel.trce) where T : class

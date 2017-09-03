@@ -1,11 +1,4 @@
-﻿using D.Util.Interface.Config;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace D.Util.Interface
+﻿namespace D.Util.Interface
 {
     /// <summary>
     /// 配置提供者

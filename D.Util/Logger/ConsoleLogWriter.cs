@@ -15,7 +15,7 @@ namespace D.Util.Logger
         /// <summary>
         /// console 日志配置文件
         /// </summary>
-        class Config : IConfigItem
+        class ConsoleLogWriterConfig : IConfig
         {
             public string Path
             {
@@ -40,7 +40,7 @@ namespace D.Util.Logger
                     }
                     catch
                     {
-                        return Util.Interface.LogLevel.info;
+                        return Interface.LogLevel.info;
                     }
                 }
             }
@@ -49,10 +49,10 @@ namespace D.Util.Logger
         LogLevel _level;
 
         public ConsoleLogWriter(
-            IConfig config
+            IConfigProvider configProvider
             )
         {
-            _level = config.GetItem<Config>().Level;
+            _level = configProvider.GetConfigNullWithDefault<ConsoleLogWriterConfig>().Level;
         }
 
         public void Write(ILogContext context)

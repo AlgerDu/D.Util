@@ -24,10 +24,10 @@ namespace D.Util.Logger
         /// TODO 暂时还没有想到如何转入配置参数
         /// </summary>
         public Log4netLogWriter(
-            IConfig config
+            IConfigProvider configProvider
             )
         {
-            _config = config.GetItem<Log4netConfig>();
+            _config = configProvider.GetConfigNullWithDefault<Log4netConfig>();
 
             _guid = Guid.NewGuid().ToString();
 

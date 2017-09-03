@@ -1,9 +1,4 @@
 ﻿using D.Util.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace D.Util.Logger
 {
@@ -17,7 +12,7 @@ namespace D.Util.Logger
     /// <summary>
     /// 通用的日志配置
     /// </summary>
-    internal class CommonConfig : IConfigItem
+    internal class LoggerConfig : IConfig
     {
         public string Path
         {
@@ -29,7 +24,7 @@ namespace D.Util.Logger
 
         public LogFilter[] Filters { get; set; }
 
-        public CommonConfig()
+        public LoggerConfig()
         {
             Filters = new LogFilter[0];
         }

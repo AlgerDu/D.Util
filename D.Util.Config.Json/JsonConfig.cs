@@ -36,7 +36,7 @@ namespace D.Util.Config
         /// 所有的配置项
         /// save 需要做的事情就是把 items 中的内容全部保存到 fileContent 然后保存到文件
         /// </summary>
-        Dictionary<string, IConfigItem> _items;
+        Dictionary<string, IConfig> _items;
 
         /// <summary>
         /// json 文件的路径
@@ -74,7 +74,7 @@ namespace D.Util.Config
         #endregion
 
         #region IConfig 方法
-        public T GetItem<T>(string name = null) where T : class, IConfigItem, new()
+        public T GetItem<T>(string name = null) where T : class, IConfig, new()
         {
             var item = new T();
 
@@ -147,7 +147,7 @@ namespace D.Util.Config
 
         public JsonConfig()
         {
-            _items = new Dictionary<string, IConfigItem>();
+            _items = new Dictionary<string, IConfig>();
         }
 
         /// <summary>

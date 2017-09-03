@@ -10,7 +10,7 @@ namespace D.Util.Logger
     /// <summary>
     /// log4net 配置
     /// </summary>
-    internal class Log4netConfig : IConfigItem
+    internal class Log4netConfig : IConfig
     {
         public string Path
         {
