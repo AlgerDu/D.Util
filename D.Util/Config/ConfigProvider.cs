@@ -48,6 +48,18 @@ namespace D.Util.Config
 
             return config;
         }
+
+        T IConfigProvider.GetConfigNullWithDefault<T>(string instanceName)
+        {
+            var config = (this as IConfigProvider).GetConfig<T>(instanceName);
+
+            if (config == null)
+            {
+                config = new T();
+            }
+
+            return config;
+        }
         #endregion
     }
 }

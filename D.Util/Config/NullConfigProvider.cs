@@ -17,5 +17,11 @@ namespace D.Util.Config
             //永远都返回一个 null 值的配置对象
             return null;
         }
+
+        T IConfigProvider.GetConfigNullWithDefault<T>(string instanceName)
+        {
+            //永远都返回一个 null 值的配置对象
+            return null;
+        }
     }
 }
