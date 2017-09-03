@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using D.Util.Config;
 using D.Util.Interface;
 using D.Util.Logger;
 using System;
@@ -15,6 +16,9 @@ namespace Example.Logger.Console
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<NullConfigProvider>()
+                .As<IConfigProvider>();
+
             builder.RegisterType<ConsoleLogWriter>()
                 .As<ILogWriter>();
 
@@ -30,6 +34,10 @@ namespace Example.Logger.Console
             var name = "日志";
 
             logger.LogDebug($"helle debug {name}");
+            logger.LogError($"helle error {name}");
+            logger.LogInformation($"helle info {name}");
+            logger.LogTrace($"helle trace {name}");
+            logger.LogWarning($"helle warn {name}");
 
             System.Console.ReadKey();
         }
