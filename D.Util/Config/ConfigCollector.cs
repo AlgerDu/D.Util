@@ -24,7 +24,7 @@ namespace D.Util.Config
         #region IConfigCollector 接口实现
         public void AddLoader(IConfigLoader loader)
         {
-            throw new NotImplementedException();
+            _configLoaders.Add(loader);
         }
 
         /// <summary>

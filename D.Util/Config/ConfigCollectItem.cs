@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace D.Util.Config
 {
-    internal class ConfigCollectItem : IConfigCollectItem
+    internal class ConfigCollectItem : IConfigCollectItem, IEquatable<ConfigCollectItem>
     {
         public string Path
         {
@@ -22,6 +22,26 @@ namespace D.Util.Config
         public IConfigLoader FromeLoader { get; set; }
 
         public IConfig ConfigData { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as ConfigCollectItem);
+        }
+
+        public bool Equals(ConfigCollectItem other)
+        {
+            return other != null &&
+                   Path == other.Path &&
+                   InstanceName == other.InstanceName;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1285529631;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Path);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(InstanceName);
+            return hashCode;
+        }
 
         public static bool operator ==(ConfigCollectItem l, ConfigCollectItem r)
         {
