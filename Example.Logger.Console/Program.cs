@@ -14,10 +14,26 @@ namespace Example.Logger.Console
     {
         static void Main(string[] args)
         {
+            var useDefault = false;
+
+            System.Console.WriteLine($"是否使用默认的配置文件：{useDefault}");
+            System.Console.WriteLine("下面是日志输出：\r\n");
+
+            var configCollector = new ConfigCollector();
+
+            if (!useDefault)
+            {
+                var config = new ConsoleLogWriterConfig
+                {
+                    LogLevel = LogLevel.info
+                };
+
+                configCollector.CollectConfig(config);
+            }
+
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<NullConfigProvider>()
-                .As<IConfigProvider>();
+            builder.RegisterInstance(configCollector.CreateProvider()).As<IConfigProvider>();
 
             builder.RegisterType<ConsoleLogWriter>()
                 .As<ILogWriter>();
@@ -33,11 +49,12 @@ namespace Example.Logger.Console
 
             var name = "日志";
 
-            logger.LogDebug($"helle debug {name}");
-            logger.LogError($"helle error {name}");
-            logger.LogInformation($"helle info {name}");
             logger.LogTrace($"helle trace {name}");
+            logger.LogDebug($"helle debug {name}");
+            logger.LogInformation($"helle info {name}");
             logger.LogWarning($"helle warn {name}");
+            logger.LogError($"helle error {name}");
+            logger.LogCritical($"helle crit {name}");
 
             System.Console.ReadKey();
         }
