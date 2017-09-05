@@ -8,56 +8,43 @@ using System.Threading.Tasks;
 namespace D.Util.Logger
 {
     /// <summary>
+    /// console 日志配置文件
+    /// </summary>
+    public class ConsoleLogWriterConfig : IConfig
+    {
+        public string Path
+        {
+            get
+            {
+                return "logging.writer.console";
+            }
+        }
+
+        public LogLevel LogLevel { get; set; }
+
+        public ConsoleLogWriterConfig()
+        {
+            LogLevel = LogLevel.trce;
+        }
+    }
+
+    /// <summary>
     /// 控制台日志 writer
     /// </summary>
     public class ConsoleLogWriter : ILogWriter
     {
-        /// <summary>
-        /// console 日志配置文件
-        /// </summary>
-        class ConsoleLogWriterConfig : IConfig
-        {
-            public string Path
-            {
-                get
-                {
-                    return "logging.writer.console";
-                }
-            }
-
-            /// <summary>
-            /// 日志记录级别
-            /// </summary>
-            public string LogLevel { get; set; }
-
-            public LogLevel Level
-            {
-                get
-                {
-                    try
-                    {
-                        return (LogLevel)Enum.Parse(typeof(LogLevel), LogLevel);
-                    }
-                    catch
-                    {
-                        return Interface.LogLevel.info;
-                    }
-                }
-            }
-        }
-
-        LogLevel _level;
+        ConsoleLogWriterConfig _config;
 
         public ConsoleLogWriter(
             IConfigProvider configProvider
             )
         {
-            _level = configProvider.GetConfigNullWithDefault<ConsoleLogWriterConfig>().Level;
+            _config = configProvider.GetConfigNullWithDefault<ConsoleLogWriterConfig>();
         }
 
         public void Write(ILogContext context)
         {
-            if (context.Level < _level)
+            if (context.Level < _config.LogLevel)
             {
                 return;
             }

@@ -2,7 +2,7 @@
 
 namespace D.Util.Logger
 {
-    internal class LogFilter
+    public class LogFilter
     {
         public string Namesapce { get; set; }
 
@@ -12,7 +12,7 @@ namespace D.Util.Logger
     /// <summary>
     /// 通用的日志配置
     /// </summary>
-    internal class LoggerConfig : IConfig
+    public class LoggerConfig : IConfig
     {
         public string Path
         {
