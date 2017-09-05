@@ -8,9 +8,10 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Example.Logger.Console</RootNamespace>
     <AssemblyName>Example.Logger.Console</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,6 +54,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\D.Utils.AutofacExt\D.Utils.AutofacExt.csproj">
+      <Project>{7405ba78-453a-4f08-a45a-760c058681bf}</Project>
+      <Name>D.Utils.AutofacExt</Name>
+    </ProjectReference>
     <ProjectReference Include="..\D.Util\D.Util.csproj">
       <Project>{573803c2-538a-4ed1-8a98-d990dcb83b9e}</Project>
       <Name>D.Util</Name>
