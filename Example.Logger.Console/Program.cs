@@ -2,6 +2,7 @@
 using D.Util.Config;
 using D.Util.Interface;
 using D.Util.Logger;
+using D.Utils.AutofacExt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Example.Logger.Console
     {
         static void Main(string[] args)
         {
-            var useDefault = false;
+            var useDefault = true;
 
             System.Console.WriteLine($"是否使用默认的配置文件：{useDefault}");
             System.Console.WriteLine("下面是日志输出：\r\n");
@@ -33,19 +34,15 @@ namespace Example.Logger.Console
 
             var builder = new ContainerBuilder();
 
-            builder.RegisterInstance(configCollector.CreateProvider()).As<IConfigProvider>();
-
-            builder.RegisterType<ConsoleLogWriter>()
-                .As<ILogWriter>();
-
-            builder.RegisterType<LoggerFactory>()
-                .As<ILoggerFactory>();
+            builder.AddUtils();
+            builder.AddConsoleLogWriter();
+            builder.AddConfigProvider(configCollector.CreateProvider());
 
             var container = builder.Build();
 
-            var loggerFactory = container.Resolve<ILoggerFactory>();
-
-            var logger = loggerFactory.CreateLogger<Program>();
+            var logger = container
+                .Resolve<ILoggerFactory>()
+                .CreateLogger<Program>();
 
             var name = "日志";
 
