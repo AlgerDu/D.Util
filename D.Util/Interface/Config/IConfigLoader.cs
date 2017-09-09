@@ -17,6 +17,11 @@ namespace D.Util.Interface
         /// <param name="path">类似与 XML 中的 path</param>
         /// <param name="instanceName">实例名（为多实例做准备）</param>
         /// <returns></returns>
-        IConfig Load(string path, string instanceName = null);
+        T Load<T>(string path, string instanceName = null) where T : class, IConfig, new();
+
+        /// <summary>
+        /// 保存所有从此 loader 加载的配置项，思考半天，觉得还是需要个保存的接口
+        /// </summary>
+        void Save();
     }
 }
