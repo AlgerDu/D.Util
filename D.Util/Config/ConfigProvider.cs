@@ -40,7 +40,7 @@ namespace D.Util.Config
             {
                 foreach (var loader in _configLoaders)
                 {
-                    config = loader.Load(tmpT.Path, instanceName) as T;
+                    config = loader.Load<T>(instanceName);
 
                     if (config != null) break;
                 }

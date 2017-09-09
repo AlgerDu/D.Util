@@ -167,7 +167,7 @@ namespace D.Util.Config
                 return;
             }
 
-            JObject content = _fileContent;
+            JObject content = _root;
 
             var nameArray = path.Split(_splitChar);
 
@@ -211,7 +211,7 @@ namespace D.Util.Config
                     JsonWriter jr = new JsonTextWriter(wr);
                     jr.Formatting = Formatting.Indented;
 
-                    _fileContent.WriteTo(jr);
+                    _root.WriteTo(jr);
 
                     jr.Close();
                     wr.Close();
