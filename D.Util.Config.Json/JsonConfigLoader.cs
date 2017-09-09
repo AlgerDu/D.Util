@@ -13,7 +13,7 @@ namespace D.Util.Config
     /// <summary>
     /// json 配置
     /// </summary>
-    public class JsonConfig : IConfig
+    public class JsonConfigLoader : IConfigLoader
     {
         #region const 变量
 
@@ -21,19 +21,16 @@ namespace D.Util.Config
         /// path 的分隔字符串
         /// </summary>
         const char _splitChar = '.';
-
-        const string _version = "version";
-        const string _describe = "describe";
         #endregion
 
         #region 字段
         /// <summary>
-        /// json 文件中读取到的内容对象
+        /// json 文件中读取的 root json 对象
         /// </summary>
-        JObject _fileContent;
+        JObject _root;
 
         /// <summary>
-        /// 所有的配置项
+        /// 所有从 root 中取出来的 config 
         /// save 需要做的事情就是把 items 中的内容全部保存到 fileContent 然后保存到文件
         /// </summary>
         Dictionary<string, IConfig> _items;
@@ -44,45 +41,32 @@ namespace D.Util.Config
         string _filePath;
         #endregion
 
-        #region IConfig 属性
-        public string Version
+        public JsonConfigLoader(string filePath)
         {
-            get
-            {
-                return JsonValue(_version).ToString();
-            }
+            _filePath = filePath;
+
+            _items = new Dictionary<string, IConfig>();
         }
 
-        public string Describe
+        #region IConfigLoader
+        public T Load<T>(string instanceName)
+            where T : class, IConfig, new()
         {
-            get
+            if (_root == null)
             {
-                return JsonValue(_describe).ToString();
+                lock (this)
+                {
+                    LoadFile();
+                }
             }
-        }
 
-        /// <summary>
-        /// 配置文件的路径
-        /// </summary>
-        public string Path
-        {
-            get
-            {
-                return _filePath;
-            }
-        }
-        #endregion
+            var config = new T();
 
-        #region IConfig 方法
-        public T GetItem<T>(string name = null) where T : class, IConfig, new()
-        {
-            var item = new T();
-
-            var path = name == null ? item.Path : item.Path + _splitChar + name;
+            var path = string.IsNullOrEmpty(instanceName) ? config.Path : config.Path + _splitChar + instanceName;
 
             if (_items.ContainsKey(path))
             {
-                item = _items[path] as T;
+                config = _items[path] as T;
             }
             else
             {
@@ -92,62 +76,59 @@ namespace D.Util.Config
                 {
                     try
                     {
-                        item = jsonItem.ToObject<T>();
+                        config = jsonItem.ToObject<T>();
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("配置文件读取 " + new T().Path + " 配置项错误：", ex);
+                        throw new Exception($"从配置文件 { _filePath } 读取配置项 { path } 失败", ex);
                     }
                 }
-                _items.Add(path, item);
+
+                _items.Add(path, config);
             }
 
-            return item;
+            return config;
         }
 
-        public void Save(string version = "1.0", string describe = null)
+        public void Save()
         {
-            JsonValue(_version, version);
-            JsonValue(_describe, describe);
-
-            foreach (var path in _items.Keys)
+            lock (this)
             {
-                JsonValue(path, _items[path]);
+                foreach (var path in _items.Keys)
+                {
+                    JsonValue(path, _items[path]);
+                }
+
+                SaveJsonToFile();
             }
-
-            SaveJsonToFile();
         }
+        #endregion
 
-        public void LoadFile(string path)
+        /// <summary>
+        /// 根据文件路径加载 json 配置文件的所有内容到 root 对象中
+        /// </summary>
+        private void LoadFile()
         {
-            _filePath = path;
-
-            if (!File.Exists(path))
+            //如果配置文件不存在
+            if (!File.Exists(_filePath))
             {
-                _fileContent = new JObject();
+                _root = new JObject();
                 return;
-                //throw new Exception(path + " 配置文件不存在");
             }
 
-            using (StreamReader sr = new StreamReader(path))
+            using (StreamReader sr = new StreamReader(_filePath))
             {
                 try
                 {
                     JsonReader jr = new JsonTextReader(sr);
 
-                    _fileContent = JObject.Load(jr);
+                    _root = JObject.Load(jr);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("读取配置文件 " + path + " 失败：" + ex.ToString());
+                    throw new Exception($"读取配置文件 { _filePath } 失败：{ ex.ToString() }");
                 }
             }
-        }
-        #endregion
-
-        public JsonConfig()
-        {
-            _items = new Dictionary<string, IConfig>();
         }
 
         /// <summary>
@@ -157,7 +138,7 @@ namespace D.Util.Config
         /// <returns></returns>
         private JToken JsonValue(string path)
         {
-            JToken value = _fileContent;
+            JToken value = _root;
 
             var nameArray = path.Split(_splitChar);
 
