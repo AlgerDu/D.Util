@@ -44,8 +44,6 @@
     <Compile Include="Config\ConfigCollectItem.cs" />
     <Compile Include="Config\ConfigProvider.cs" />
     <Compile Include="Config\NullConfigProvider.cs" />
-    <Compile Include="Event\BaseEvent.cs" />
-    <Compile Include="Event\EventBus.cs" />
     <Compile Include="Interface\Config\IConfig.cs" />
     <Compile Include="Interface\Config\IConfigCollector.cs" />
     <Compile Include="Interface\Config\IConfigCollectItem.cs" />
