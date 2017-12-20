@@ -51,14 +51,10 @@
     <Compile Include="Interface\Config\IConfigCollectItem.cs" />
     <Compile Include="Interface\Config\IConfigLoader.cs" />
     <Compile Include="Interface\Config\IConfigProvider.cs" />
-    <Compile Include="Interface\IEvent.cs" />
-    <Compile Include="Interface\IEventBus.cs" />
-    <Compile Include="Interface\IEventHandler.cs" />
     <Compile Include="Interface\Logger\ILogContext.cs" />
     <Compile Include="Interface\Logger\ILogger.cs" />
     <Compile Include="Interface\Logger\ILoggerFactory.cs" />
     <Compile Include="Interface\Logger\ILogWriter.cs" />
-    <Compile Include="Interface\IMapper.cs" />
     <Compile Include="Logger\LoggerConfig.cs" />
     <Compile Include="Logger\ConsoleLogWriter.cs" />
     <Compile Include="Logger\LogContext.cs" />
