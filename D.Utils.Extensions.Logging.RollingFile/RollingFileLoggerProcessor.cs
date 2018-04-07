@@ -33,7 +33,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
         private int _currentIndex;
 
-        private long _fileMaxSize;
+        private long _maxFileSize;
 
         /// <summary>
         /// 处理内存中日志列表的线程
@@ -51,7 +51,8 @@ namespace D.Utils.Extensions.Logging.RollingFile
         private BlockingCollection<LogContent> _logContentQueue;
 
         public RollingFileLoggerProcessor(
-            string _path
+            string path,
+            long maxFileSize
             )
         {
             _currentBatchContents = new List<LogContent>();
@@ -61,7 +62,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
             _logContentQueue = new BlockingCollection<LogContent>(new ConcurrentQueue<LogContent>());
 
-            _originalPath = _path;
+            _originalPath = path;
 
             _currentIndex = 0;
             _currentPath = _originalPath;
@@ -151,7 +152,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
             var fileInfo = new FileInfo(_currentPath);
 
-            if (fileInfo.Length <= _fileMaxSize)
+            if (fileInfo.Length <= _maxFileSize)
             {
                 return;
             }
