@@ -63,6 +63,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
             _logContentQueue = new BlockingCollection<LogContent>(new ConcurrentQueue<LogContent>());
 
             _originalPath = path;
+            _maxFileSize = maxFileSize;
 
             _currentIndex = 0;
             _currentPath = _originalPath;
@@ -133,7 +134,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
                 await WriteLogContentsAsync(_currentBatchContents, _cancellationTokenSource.Token);
                 _currentBatchContents.Clear();
 
-                await Task.Delay(_interval, _cancellationTokenSource.Token);
+                await Task.Delay(_interval);
             }
         }
 
@@ -144,21 +145,25 @@ namespace D.Utils.Extensions.Logging.RollingFile
         {
             var tmpPath = _originalPath.Replace("{Date}", DateTimeOffset.Now.ToString("yyyyMMdd"));
 
-            if (!File.Exists(_currentPath))
+            Directory.CreateDirectory(Path.GetDirectoryName(tmpPath));
+
+            if (!File.Exists(tmpPath))
             {
+                _currentPath = tmpPath;
                 File.Create(_currentPath);
                 return;
             }
 
-            var fileInfo = new FileInfo(_currentPath);
+            var fileInfo = new FileInfo(tmpPath);
 
             if (fileInfo.Length <= _maxFileSize)
             {
+                _currentPath = tmpPath;
                 return;
             }
 
             var fileName = Path.GetFileNameWithoutExtension(tmpPath);
-            var path = Path.GetFullPath(tmpPath);
+            var path = Path.GetDirectoryName(tmpPath);
             var ext = Path.GetExtension(tmpPath);
 
             _currentPath = $"{path}{fileName}_{_currentIndex++}.{ext}";
@@ -189,7 +194,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
         public void Dispose()
         {
-            
+
         }
     }
 }

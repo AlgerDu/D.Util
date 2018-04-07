@@ -73,5 +73,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\D.Utils.Extensions.Logging.RollingFile\D.Utils.Extensions.Logging.RollingFile.csproj">
+      <Project>{51b2b8b0-997e-4fc3-b47d-f06f8ab0a093}</Project>
+      <Name>D.Utils.Extensions.Logging.RollingFile</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

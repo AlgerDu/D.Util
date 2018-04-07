@@ -8,7 +8,7 @@ namespace D.Utils
 {
     public static class RollingFileLoggerExtensions
     {
-        public static ILoggerFactory AddConsole(this ILoggerFactory factory)
+        public static ILoggerFactory AddRollingFile(this ILoggerFactory factory)
         {
             factory.AddProvider(new RollingFileProvider());
             return factory;
