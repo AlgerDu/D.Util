@@ -69,12 +69,33 @@ namespace D.Utils.Extensions.Logging.RollingFile
         /// 有 ILogger 调用，向队列中加入一个 logContent
         /// </summary>
         /// <param name="logContent"></param>
-        internal void AddMessage(LogContent logContent)
+        internal void AddLogContent(LogContent logContent)
         {
             if (!_logContentQueue.IsAddingCompleted)
             {
                 _logContentQueue.Add(logContent, _cancellationTokenSource.Token);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <returns></returns>
+        internal bool IsEnabled(LogLevel logLevel)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="categoryName"></param>
+        /// <returns></returns>
+        internal bool IsEnabled(LogLevel logLevel,string categoryName)
+        {
+            return true;
         }
 
         #region BaseDLoggerProvider
