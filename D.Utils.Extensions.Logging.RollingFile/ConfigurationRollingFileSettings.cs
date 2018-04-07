@@ -4,12 +4,10 @@ using System.Text;
 
 namespace D.Utils.Extensions.Logging.RollingFile
 {
-    public class DBaseProviderOptions
-    {
-
-    }
-
-    class DRollingFileOptions
+    /// <summary>
+    /// RollingFile 配置
+    /// </summary>
+    public class ConfigurationRollingFileSettings
     {
     }
 }

@@ -5,10 +5,20 @@ using System.Text;
 
 namespace D.Utils.Extensions.Logging.RollingFile
 {
-    public class DLogger : ILogger
+    internal class RollingFileLogger : ILogger
     {
-        private readonly DBaseLoggerProvider _provider;
+        private readonly RollingFileLoggerProcessor _processor;
         private readonly string _category;
+        private readonly LogLevel _miniLevel;
+
+        public RollingFileLogger(
+            RollingFileLoggerProcessor processor
+            , LogLevel miniLevel
+            )
+        {
+            _processor = processor;
+            _miniLevel = miniLevel;
+        }
 
         public IDisposable BeginScope<TState>(TState state)
         {
@@ -17,12 +27,12 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
         public bool IsEnabled(LogLevel logLevel)
         {
-            return _provider.IsEnabled(logLevel);
+            return logLevel > _miniLevel;
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            if (_provider.IsEnabled(logLevel, _category))
+            if (IsEnabled(logLevel))
             {
                 var content = new LogContent
                 {
@@ -34,7 +44,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
                     Ex = exception
                 };
 
-                _provider.AddLogContent(content);
+                _processor.AddLogContent(content);
             }
         }
     }

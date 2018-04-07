@@ -12,7 +12,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
     /// <summary>
     /// 将日志向文件中输出
     /// </summary>
-    internal class RollingFileLoggerProcessor
+    internal class RollingFileLoggerProcessor : IDisposable
     {
         /// <summary>
         /// 当前需要处理一批日志
@@ -185,6 +185,11 @@ namespace D.Utils.Extensions.Logging.RollingFile
                 default:
                     throw new ArgumentOutOfRangeException("logLevel");
             }
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }
