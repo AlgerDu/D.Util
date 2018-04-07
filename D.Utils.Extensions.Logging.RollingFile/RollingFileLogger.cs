@@ -14,10 +14,12 @@ namespace D.Utils.Extensions.Logging.RollingFile
         public RollingFileLogger(
             RollingFileLoggerProcessor processor
             , LogLevel miniLevel
+            , string category
             )
         {
             _processor = processor;
             _miniLevel = miniLevel;
+            _category = category;
         }
 
         public IDisposable BeginScope<TState>(TState state)

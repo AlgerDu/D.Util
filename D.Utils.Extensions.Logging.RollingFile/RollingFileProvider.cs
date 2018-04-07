@@ -21,6 +21,11 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
         private readonly RollingFileLoggerProcessor _processor;
 
+        public RollingFileProvider()
+        {
+            _processor = new RollingFileLoggerProcessor(@"log/{Date}/test.log", 10000);
+        }
+
         #region ILoggerProvider
         public ILogger CreateLogger(string categoryName)
         {
@@ -35,7 +40,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
         private RollingFileLogger CreateLoggerImplementation(string name)
         {
-            return new RollingFileLogger();
+            return new RollingFileLogger(_processor, LogLevel.Trace, name);
         }
     }
 }
