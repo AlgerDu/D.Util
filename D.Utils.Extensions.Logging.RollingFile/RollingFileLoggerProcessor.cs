@@ -56,7 +56,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
             )
         {
             _currentBatchContents = new List<LogContent>();
-            _interval = TimeSpan.FromSeconds(2);
+            _interval = TimeSpan.FromSeconds(3);
 
             _cancellationTokenSource = new CancellationTokenSource();
 
@@ -66,7 +66,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
             _maxFileSize = maxFileSize;
 
             _currentIndex = 0;
-            _currentPath = _originalPath;
+            _currentPath = string.Empty;
             RollFile();
 
             _outputTask = Task.Factory.StartNew(
@@ -84,25 +84,31 @@ namespace D.Utils.Extensions.Logging.RollingFile
         /// <returns></returns>
         private async Task WriteLogContentsAsync(IEnumerable<LogContent> contents, CancellationToken token)
         {
-            using (var streamWriter = File.AppendText(_currentPath))
+            try
             {
-                var builder = new StringBuilder();
-                foreach (var content in contents)
+                using (var streamWriter = File.AppendText(_currentPath))
                 {
-                    builder.AppendLine($"{GetLogLevelString(content.LogLevel)}: {content.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff zzz")}[{content.EventId}]");
-
-                    builder.AppendLine($"      {content.Msg}");
-
-                    if (content.Ex != null)
+                    var builder = new StringBuilder();
+                    foreach (var content in contents)
                     {
-                        builder.AppendLine(content.Ex.ToString().Replace("\r\n", "      \r\n"));
+                        builder.AppendLine($"{GetLogLevelString(content.LogLevel)}: {content.Timestamp.ToString("yyyy-MM-dd HH:mm:ss fff")}[{content.EventId}]");
+
+                        builder.AppendLine($"      {content.Msg}");
+
+                        if (content.Ex != null)
+                        {
+                            builder.AppendLine(content.Ex.ToString().Replace("\r\n", "      \r\n"));
+                        }
                     }
+
+                    await streamWriter.WriteAsync(builder.ToString());
                 }
 
-                await streamWriter.WriteAsync(builder.ToString());
+                RollFile();
             }
-
-            RollFile();
+            catch (Exception ex)
+            {
+            }
         }
 
         /// <summary>
@@ -143,30 +149,37 @@ namespace D.Utils.Extensions.Logging.RollingFile
         /// </summary>
         private void RollFile()
         {
-            var tmpPath = _originalPath.Replace("{Date}", DateTimeOffset.Now.ToString("yyyyMMdd"));
-
-            Directory.CreateDirectory(Path.GetDirectoryName(tmpPath));
-
-            if (!File.Exists(tmpPath))
+            if (string.IsNullOrEmpty(_currentPath))
             {
-                _currentPath = tmpPath;
-                File.Create(_currentPath);
+                _currentPath = _originalPath.Replace("{Date}", DateTimeOffset.Now.ToString("yyyyMMdd"));
+                Directory.CreateDirectory(Path.GetDirectoryName(_currentPath));
+            }
+
+            if (!File.Exists(_currentPath))
+            {
                 return;
             }
 
-            var fileInfo = new FileInfo(tmpPath);
+            var fileInfo = new FileInfo(_currentPath);
 
             if (fileInfo.Length <= _maxFileSize)
             {
-                _currentPath = tmpPath;
                 return;
             }
 
+            var tmpPath = _originalPath.Replace("{Date}", DateTimeOffset.Now.ToString("yyyyMMdd"));
+
             var fileName = Path.GetFileNameWithoutExtension(tmpPath);
-            var path = Path.GetDirectoryName(tmpPath);
+            var directory = Path.GetDirectoryName(tmpPath);
             var ext = Path.GetExtension(tmpPath);
 
-            _currentPath = $"{path}{fileName}_{_currentIndex++}.{ext}";
+            do
+            {
+                tmpPath = $"{directory}\\{fileName}_{++_currentIndex}{ext}";
+                Directory.CreateDirectory(Path.GetDirectoryName(_currentPath));
+            } while (File.Exists(tmpPath));
+
+            _currentPath = tmpPath;
         }
 
         private string GetLogLevelString(LogLevel logLevel)

@@ -23,7 +23,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
         public RollingFileProvider()
         {
-            _processor = new RollingFileLoggerProcessor(@"log/{Date}/test.log", 10000);
+            _processor = new RollingFileLoggerProcessor(@"log/{Date}/test.log", 100);
         }
 
         #region ILoggerProvider
