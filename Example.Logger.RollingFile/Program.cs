@@ -28,7 +28,7 @@ namespace Example.Logger.RollingFile
 
             var i = 0;
 
-            while (i < 1000)
+            while (i < 100)
             {
                 logger.LogError($"LogError {i}");
                 logger.LogInformation($"LogInformation {i}");

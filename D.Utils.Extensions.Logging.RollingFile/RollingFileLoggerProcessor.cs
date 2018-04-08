@@ -186,7 +186,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
             foreach (var file in toChangeNameFile)
             {
-                Directory.Move(file, tmpPath);
+                File.Move(file, tmpPath);
                 tmpPath = file;
             }
 
