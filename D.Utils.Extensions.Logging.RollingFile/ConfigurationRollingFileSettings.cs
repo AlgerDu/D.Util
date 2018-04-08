@@ -49,7 +49,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
         public long GetMaxFileSize()
         {
-            return 100000;
+            return 1500;
         }
     }
 }

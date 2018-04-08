@@ -31,8 +31,6 @@ namespace D.Utils.Extensions.Logging.RollingFile
         /// </summary>
         private string _currentPath;
 
-        private int _currentIndex;
-
         private long _maxFileSize;
 
         /// <summary>
@@ -65,7 +63,6 @@ namespace D.Utils.Extensions.Logging.RollingFile
             _originalPath = path;
             _maxFileSize = maxFileSize;
 
-            _currentIndex = 0;
             _currentPath = string.Empty;
             RollFile();
 
@@ -173,11 +170,25 @@ namespace D.Utils.Extensions.Logging.RollingFile
             var directory = Path.GetDirectoryName(tmpPath);
             var ext = Path.GetExtension(tmpPath);
 
-            do
+            Directory.CreateDirectory(directory);
+
+            var index = 1;
+
+            var toChangeNameFile = new List<string>();
+
+            while (File.Exists(tmpPath))
             {
-                tmpPath = $"{directory}\\{fileName}_{++_currentIndex}{ext}";
-                Directory.CreateDirectory(Path.GetDirectoryName(_currentPath));
-            } while (File.Exists(tmpPath));
+                toChangeNameFile.Add(tmpPath);
+                tmpPath = $"{directory}\\{fileName}_{index++}{ext}";
+            }
+
+            toChangeNameFile.Reverse();
+
+            foreach (var file in toChangeNameFile)
+            {
+                Directory.Move(file, tmpPath);
+                tmpPath = file;
+            }
 
             _currentPath = tmpPath;
         }

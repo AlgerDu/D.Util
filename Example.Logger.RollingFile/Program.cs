@@ -26,9 +26,14 @@ namespace Example.Logger.RollingFile
 
             ILogger logger = factory.CreateLogger<Program>();
 
-            logger.LogError("LogError");
-            logger.LogInformation("LogInformation");
-            logger.LogDebug("LogDebug");
+            var i = 0;
+
+            while (i < 1000)
+            {
+                logger.LogError($"LogError {i}");
+                logger.LogInformation($"LogInformation {i}");
+                logger.LogDebug($"LogDebug {i}");
+            }
 
             Console.ReadKey();
         }
