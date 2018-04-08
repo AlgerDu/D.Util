@@ -26,6 +26,17 @@ namespace D.Utils.Extensions.Logging.RollingFile
             _processor = new RollingFileLoggerProcessor(@"log/{Date}/test.log", 100);
         }
 
+        public RollingFileProvider(ConfigurationRollingFileSettings settings)
+        {
+            _settings = settings;
+
+            if (_settings == null) throw new Exception("D.RollingFileProvider null settings");
+
+            if (string.IsNullOrEmpty(_settings.Path)) throw new Exception("D.RollingFileProvider null settings with 'Path'");
+
+            _processor = new RollingFileLoggerProcessor(_settings.Path, _settings.GetMaxFileSize());
+        }
+
         #region ILoggerProvider
         public ILogger CreateLogger(string categoryName)
         {
