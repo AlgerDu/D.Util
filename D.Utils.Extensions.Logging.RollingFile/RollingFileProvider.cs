@@ -51,7 +51,13 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
         private RollingFileLogger CreateLoggerImplementation(string name)
         {
-            return new RollingFileLogger(_processor, LogLevel.Trace, name);
+            LogLevel level;
+            if (!_settings.TryGetSwitch(name, out level))
+            {
+                level = LogLevel.None;
+            }
+
+            return new RollingFileLogger(_processor, level, name);
         }
     }
 }

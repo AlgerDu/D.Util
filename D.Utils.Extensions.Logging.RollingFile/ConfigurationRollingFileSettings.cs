@@ -32,16 +32,13 @@ namespace D.Utils.Extensions.Logging.RollingFile
             string levelStr;
             if (!LogLevel.TryGetValue(name, out levelStr) || string.IsNullOrEmpty(levelStr))
             {
-                level = Microsoft.Extensions.Logging.LogLevel.None;
-                return false;
+                if (!LogLevel.TryGetValue("Default", out levelStr) || string.IsNullOrEmpty(levelStr))
+                {
+                    level = Microsoft.Extensions.Logging.LogLevel.None;
+                    return false;
+                }
             }
-
-            if (!LogLevel.TryGetValue("Default", out levelStr) || string.IsNullOrEmpty(levelStr))
-            {
-                level = Microsoft.Extensions.Logging.LogLevel.None;
-                return false;
-            }
-
+            
             if (Enum.TryParse<LogLevel>(levelStr, true, out level))
             {
                 return true;
