@@ -28,11 +28,14 @@ namespace Example.Logger.RollingFile
 
             var i = 0;
 
-            while (i < 100)
+            while (i < 100000)
             {
                 logger.LogError($"LogError {i}");
                 logger.LogInformation($"LogInformation {i}");
                 logger.LogDebug($"LogDebug {i}");
+                Console.WriteLine(i++);
+                if (i % 10 == 0)
+                    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(0.5));
             }
 
             Console.ReadKey();
