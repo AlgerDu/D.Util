@@ -16,16 +16,13 @@
     },
     "RollingFile": {
       "LogLevel": {
-        "Microsoft.AspNetCore.Mvc.Razor.Internal": "Warning",
-        "Microsoft.AspNetCore.Mvc.Razor.Razor": "Debug",
-        "Microsoft.AspNetCore.Mvc.Razor": "Error",
         "Default": "Information"
       },
-      "Path": "logs/{Date}/test.log"
+      "Path": "logs/{Date}/test.log",
+      "MaxFileSize": "2MB"
     },
     "LogLevel": {
       "Default": "Debug"
     }
   }
 }
-
