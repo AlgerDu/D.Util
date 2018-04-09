@@ -38,7 +38,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
                     return false;
                 }
             }
-            
+
             if (Enum.TryParse<LogLevel>(levelStr, true, out level))
             {
                 return true;
@@ -49,7 +49,38 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
         public long GetMaxFileSize()
         {
-            return 1500;
+            var maxSizeStr = MaxFileSize.ToUpper();
+            long size = 0;
+
+            try
+            {
+                if (maxSizeStr.EndsWith("KB"))
+                {
+                    size = Convert.ToInt64(maxSizeStr.Replace("KB", "")) * 1024;
+                }
+                else if (maxSizeStr.EndsWith("MB"))
+                {
+                    size = Convert.ToInt64(maxSizeStr.Replace("MB", "")) * 1024 * 1024;
+                }
+                else if (maxSizeStr.EndsWith("GB"))
+                {
+                    size = Convert.ToInt64(maxSizeStr.Replace("GB", "")) * 1024 * 1024 * 1024;
+                }
+                else if (maxSizeStr.EndsWith("B"))
+                {
+                    size = Convert.ToInt64(maxSizeStr.Replace("B", ""));
+                }
+                else
+                {
+                    size = 8 * 1024 * 1024;
+                }
+            }
+            catch
+            {
+                throw new Exception("rolling file provider sttings MaxFileSize is a wrong number");
+            }
+
+            return size;
         }
     }
 }
