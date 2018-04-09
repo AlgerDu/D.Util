@@ -105,6 +105,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
             }
             catch (Exception ex)
             {
+                throw new Exception($"rolling file logger 写入文件异常：{ex}");
             }
         }
 
