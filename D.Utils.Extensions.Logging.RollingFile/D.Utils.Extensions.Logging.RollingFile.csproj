@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>AlgerDu</Authors>
+    <Product>D.Utils</Product>
+    <PackageProjectUrl>https://github.com/AlgerDu/D.Util</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\D.Utils.Extensions.Logging.RollingFile.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\D.Utils.Extensions.Logging.RollingFile.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
