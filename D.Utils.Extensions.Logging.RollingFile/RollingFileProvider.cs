@@ -54,7 +54,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
             LogLevel level;
             if (!_settings.TryGetSwitch(name, out level))
             {
-                level = LogLevel.None;
+                level = LogLevel.Information;
             }
 
             return new RollingFileLogger(_processor, level, name);
