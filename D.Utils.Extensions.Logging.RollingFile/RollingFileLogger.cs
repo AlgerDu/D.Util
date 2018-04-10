@@ -43,7 +43,8 @@ namespace D.Utils.Extensions.Logging.RollingFile
                     Timestamp = DateTimeOffset.Now,
                     Msg = formatter(state, exception),
                     Category = _category,
-                    Ex = exception
+                    Ex = exception,
+                    ThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId
                 };
 
                 _processor.AddLogContent(content);

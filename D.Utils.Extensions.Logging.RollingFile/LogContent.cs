@@ -16,5 +16,6 @@ namespace D.Utils.Extensions.Logging.RollingFile
         public DateTimeOffset Timestamp { get; set; }
         public string Category { get; set; }
         public Exception Ex { get; set; }
+        public int ThreadID { get; set; }
     }
 }

@@ -73,6 +73,11 @@ namespace D.Utils.Extensions.Logging.RollingFile
                 );
         }
 
+        public void Dispose()
+        {
+
+        }
+
         /// <summary>
         /// 异步写 LogContents 到正式的目标，比如文件等
         /// </summary>
@@ -88,14 +93,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
                     var builder = new StringBuilder();
                     foreach (var content in contents)
                     {
-                        builder.AppendLine($"{GetLogLevelString(content.LogLevel)}: {content.Timestamp.ToString("yyyy-MM-dd HH:mm:ss fff")}[{content.EventId}]");
-
-                        builder.AppendLine($"      {content.Msg}");
-
-                        if (content.Ex != null)
-                        {
-                            builder.AppendLine(content.Ex.ToString().Replace("\r\n", "      \r\n"));
-                        }
+                        FormattingLogContent(builder, content);
                     }
 
                     await streamWriter.WriteAsync(builder.ToString());
@@ -196,8 +194,6 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
         private string GetLogLevelString(LogLevel logLevel)
         {
-            //IL_0000: Unknown result type (might be due to invalid IL or missing references)
-            //IL_0001: Expected I4, but got Unknown
             switch ((int)logLevel)
             {
                 case 0:
@@ -217,9 +213,16 @@ namespace D.Utils.Extensions.Logging.RollingFile
             }
         }
 
-        public void Dispose()
+        private void FormattingLogContent(StringBuilder builder, LogContent content)
         {
+            builder.AppendLine($"{GetLogLevelString(content.LogLevel)}: {content.Timestamp.ToString("yyyy-MM-dd HH:mm:ss fff")}[{content.ThreadID}]");
 
+            builder.AppendLine($"      {content.Msg}({content.EventId})");
+
+            if (content.Ex != null)
+            {
+                builder.AppendLine(content.Ex.ToString().Replace("\r\n", "      \r\n"));
+            }
         }
     }
 }
