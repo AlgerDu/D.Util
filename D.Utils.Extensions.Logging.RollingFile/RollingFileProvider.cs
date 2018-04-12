@@ -21,10 +21,10 @@ namespace D.Utils.Extensions.Logging.RollingFile
 
         private readonly RollingFileLoggerProcessor _processor;
 
-        public RollingFileProvider()
-        {
-            _processor = new RollingFileLoggerProcessor(@"log/{Date}/test.log", 100);
-        }
+        //public RollingFileProvider()
+        //{
+        //    _processor = new RollingFileLoggerProcessor(@"log/{Date}/test.log", 100);
+        //}
 
         public RollingFileProvider(ConfigurationRollingFileSettings settings)
         {
@@ -35,6 +35,11 @@ namespace D.Utils.Extensions.Logging.RollingFile
             if (string.IsNullOrEmpty(_settings.Path)) throw new Exception("D.RollingFileProvider null settings with 'Path'");
 
             _processor = new RollingFileLoggerProcessor(_settings.Path, _settings.GetMaxFileSize());
+        }
+
+        public RollingFileProvider(IOptionsMonitor<ConfigurationRollingFileSettings> options)
+            : this(options.CurrentValue)
+        {
         }
 
         #region ILoggerProvider

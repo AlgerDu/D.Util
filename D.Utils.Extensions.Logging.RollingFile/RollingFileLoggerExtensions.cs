@@ -1,5 +1,6 @@
 ﻿using D.Utils.Extensions.Logging.RollingFile;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace D.Utils
         [Obsolete]
         public static ILoggerFactory AddRollingFile(this ILoggerFactory factory)
         {
-            factory.AddProvider(new RollingFileProvider());
+            //factory.AddProvider(new RollingFileProvider());
             return factory;
         }
 
@@ -57,6 +58,33 @@ namespace D.Utils
 
             factory.AddProvider(new RollingFileProvider(settings));
             return factory;
+        }
+
+        /// <summary>
+        /// 添加 rolling file provider
+        /// 读取配置，暂时有些疑问
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static ILoggingBuilder AddRollingFile(this ILoggingBuilder builder, IConfiguration configuration)
+        {
+            builder.Services.AddSingleton<ILoggerProvider, RollingFileProvider>();
+            builder.Services.Configure<ConfigurationRollingFileSettings>(configuration);
+
+            return builder;
+        }
+
+        /// <summary>
+        /// 添加 rolling file provider
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        public static ILoggingBuilder AddRollingFile(this ILoggingBuilder builder)
+        {
+            builder.Services.AddSingleton<ILoggerProvider, RollingFileProvider>();
+
+            return builder;
         }
     }
 }
