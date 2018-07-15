@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>AlgerDu</Authors>
+    <Product>D.Extensions</Product>
+    <Description>自己学习.ent coro di 封装的 autofac</Description>
   </PropertyGroup>
 
   <ItemGroup>
