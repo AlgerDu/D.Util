@@ -5,8 +5,8 @@
     <Authors>AlgerDu</Authors>
     <Product>D.Utils</Product>
     <PackageProjectUrl>https://github.com/AlgerDu/D.Util</PackageProjectUrl>
-    <Version>1.0.1</Version>
-    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.2</Version>
+    <FileVersion>1.0.2.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
