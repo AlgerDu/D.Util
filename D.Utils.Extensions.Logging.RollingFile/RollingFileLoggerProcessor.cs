@@ -192,6 +192,16 @@ namespace D.Utils.Extensions.Logging.RollingFile
             _currentPath = tmpPath;
         }
 
+        private string AnalyseOriginalPath(string originalPath)
+        {
+            var rst = originalPath
+                .Replace("{Date}", DateTimeOffset.Now.ToString("yyyyMMdd"))
+                .Replace("{yyyyMMdd}", DateTimeOffset.Now.ToString("yyyyMMdd"))
+                .Replace("{yyyy-MM-dd}", DateTimeOffset.Now.ToString("yyyy-MM-dd"));
+
+            return rst;
+        }
+
         private string GetLogLevelString(LogLevel logLevel)
         {
             switch ((int)logLevel)
@@ -216,8 +226,13 @@ namespace D.Utils.Extensions.Logging.RollingFile
         private void FormattingLogContent(StringBuilder builder, LogContent content)
         {
             builder.AppendLine($"{GetLogLevelString(content.LogLevel)}: {content.Timestamp.ToString("yyyy-MM-dd HH:mm:ss fff")}[{content.ThreadID}]");
+            builder.AppendLine($"      {content.Category}");
+            builder.AppendLine($"      {content.Msg}");
 
-            builder.AppendLine($"      {content.Msg}({content.EventId})");
+            if (content.EventId.Id != 0)
+            {
+                builder.Append($"({content.EventId})");
+            }
 
             if (content.Ex != null)
             {
