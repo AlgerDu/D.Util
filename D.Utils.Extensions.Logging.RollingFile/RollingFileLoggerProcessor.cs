@@ -147,7 +147,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
         {
             if (string.IsNullOrEmpty(_currentPath))
             {
-                _currentPath = _originalPath.Replace("{Date}", DateTimeOffset.Now.ToString("yyyyMMdd"));
+                _currentPath = AnalyseOriginalPath(_originalPath);
                 Directory.CreateDirectory(Path.GetDirectoryName(_currentPath));
             }
 
@@ -163,7 +163,7 @@ namespace D.Utils.Extensions.Logging.RollingFile
                 return;
             }
 
-            var tmpPath = _originalPath.Replace("{Date}", DateTimeOffset.Now.ToString("yyyyMMdd"));
+            var tmpPath = AnalyseOriginalPath(_originalPath);
 
             var fileName = Path.GetFileNameWithoutExtension(tmpPath);
             var directory = Path.GetDirectoryName(tmpPath);
