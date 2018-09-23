@@ -3,6 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>D.Utils</RootNamespace>
+    <Authors>AlgerDu</Authors>
+    <Product>D.Utils</Product>
+    <Description>自定义通用返回结果</Description>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl>https://github.com/AlgerDu/D.Util</PackageProjectUrl>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
