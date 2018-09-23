@@ -5,4 +5,8 @@
     <RootNamespace>D.Utils</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>E:\DProject\D.Utils\D.Utils.Result.Abstractions\D.Utils.Result.Abstractions.xml</DocumentationFile>
+  </PropertyGroup>
+
 </Project>
