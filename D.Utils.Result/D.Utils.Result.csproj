@@ -3,9 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>D.Utils</RootNamespace>
+    <Authors>AlgerDu</Authors>
+    <Company>AlgerDu</Company>
+    <Product>D.Utils</Product>
+    <Description>通用返回结果实现</Description>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl>https://github.com/AlgerDu/D.Util</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>E:\DProject\D.Utils\D.Utils.Result\D.Utils.Result.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>E:\DProject\D.Utils\D.Utils.Result\D.Utils.Result.xml</DocumentationFile>
   </PropertyGroup>
 
