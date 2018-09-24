@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>D.Utils.Result.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:D.Utils.IBathOpsResultItem">
+            <summary>
+            批量操作 item
+            </summary>
+        </member>
+        <member name="P:D.Utils.IBathOpsResultItem.Code">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:D.Utils.IBathOpsResultItem.Index">
+            <summary>
+            item 在批量操作中顺序
+            </summary>
+        </member>
+        <member name="P:D.Utils.IBathOpsResultItem.Msg">
+            <summary>
+            返回消息
+            </summary>
+        </member>
+        <member name="T:D.Utils.IBathOpsResult">
+            <summary>
+            批量操作结果
+            </summary>
+        </member>
+        <member name="P:D.Utils.IBathOpsResult.OpsCount">
+            <summary>
+            操作的总数
+            </summary>
+        </member>
+        <member name="P:D.Utils.IBathOpsResult.Items">
+            <summary>
+            结果数据
+            </summary>
+        </member>
+        <member name="T:D.Utils.IBathOpsResultItem`1">
+            <summary>
+            批量操作 item（泛型）
+            </summary>
+        </member>
+        <member name="P:D.Utils.IBathOpsResultItem`1.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:D.Utils.IBathOpsResult`1">
+            <summary>
+            批量操作结果（泛型）
+            </summary>
+        </member>
+        <member name="P:D.Utils.IBathOpsResult`1.OpsCount">
+            <summary>
+            操作的总数
+            </summary>
+        </member>
+        <member name="P:D.Utils.IBathOpsResult`1.Items">
+            <summary>
+            结果数据
+            </summary>
+        </member>
+        <member name="T:D.Utils.IResult">
+            <summary>
+            通用结果
+            </summary>
+        </member>
+        <member name="P:D.Utils.IResult.Code">
+            <summary>
+            结果标识
+            </summary>
+        </member>
+        <member name="P:D.Utils.IResult.Msg">
+            <summary>
+            返回信息，成功与否都可能有消息返回
+            </summary>
+        </member>
+        <member name="M:D.Utils.IResult.IsSuccess">
+            <summary>
+            是否成功
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:D.Utils.IResult`1">
+            <summary>
+            通用结果
+            </summary>
+        </member>
+        <member name="P:D.Utils.IResult`1.Data">
+            <summary>
+            泛型数据，默认为 defaul(T)
+            </summary>
+        </member>
+        <member name="T:D.Utils.ISearchResult`1">
+            <summary>
+            分页查询结果
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:D.Utils.ISearchResult`1.PageSize">
+            <summary>
+            每页数量，为 -1 时代表不分页
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:D.Utils.ISearchResult`1.PageIndex">
+            <summary>
+            页码，不分页时返回 1
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:D.Utils.ISearchResult`1.RecodCount">
+            <summary>
+            总记录数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:D.Utils.ISearchResult`1.Datas">
+            <summary>
+            列表数据
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
