@@ -17,6 +17,8 @@ namespace D.Utils
         Action<IConfigurationBuilder> _configureDelegate;
         Action<IConfiguration, ILoggingBuilder> _configureLogging;
 
+        IStartup _startup;
+
         /// <summary>
         /// .net core 依赖注入容器
         /// </summary>
@@ -59,9 +61,11 @@ namespace D.Utils
         /// </summary>
         /// <typeparam name="Startup"></typeparam>
         /// <returns></returns>
-        public IApplicationBuilder Use<Startup>() where Startup : IStartup
+        public IApplicationBuilder Use<Startup>() where Startup : IStartup, new()
         {
-            throw new NotImplementedException();
+            _startup = new Startup();
+
+            return this;
         }
 
         /// <summary>
@@ -69,10 +73,28 @@ namespace D.Utils
         /// </summary>
         /// <typeparam name="App"></typeparam>
         /// <returns></returns>
-        public App Builde<App>() where App : IApplication
+        public App Builde<App>() where App : class, IApplication
         {
-            var loggerFactory = new LoggerFactory();
-            throw new NotImplementedException();
+            var configurationBuilder = new ConfigurationBuilder();
+
+            _configureDelegate(configurationBuilder);
+
+            _startup.Configuration = configurationBuilder.Build();
+
+            _configureLogging(
+                _startup.Configuration
+                , new DLoggingBuilder { Services = _services }
+                );
+
+            _services.AddLogging();
+
+            _services.AddSingleton<IApplication, App>();
+
+            _startup.ConfigService(_services);
+
+            var provider = _services.BuildServiceProvider();
+
+            return provider.GetService<App>();
         }
     }
 }

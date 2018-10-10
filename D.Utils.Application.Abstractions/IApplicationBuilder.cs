@@ -36,13 +36,13 @@ namespace D.Utils
         /// </summary>
         /// <typeparam name="Startup"></typeparam>
         /// <returns></returns>
-        IApplicationBuilder Use<Startup>() where Startup : IStartup;
+        IApplicationBuilder Use<Startup>() where Startup : IStartup, new();
 
         /// <summary>
         /// 构建 app
         /// </summary>
         /// <typeparam name="App"></typeparam>
         /// <returns></returns>
-        App Builde<App>() where App : IApplication;
+        App Builde<App>() where App :class, IApplication;
     }
 }
