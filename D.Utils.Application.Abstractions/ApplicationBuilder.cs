@@ -94,7 +94,7 @@ namespace D.Utils
 
             var provider = _services.BuildServiceProvider();
 
-            return provider.GetService<App>();
+            return provider.GetService<IApplication>() as App;
         }
     }
 }
