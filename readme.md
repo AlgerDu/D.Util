@@ -10,18 +10,23 @@
 * 在自己做一个新的东西的时候不再是从零开始；
 * 分享与认同。
 
-## DI
+## 简单规范
+
+* `D.Extensions.x` 是对一些其它包的扩展；
+* `D.Utils` 是自己抽象出来的一些通用工具类。
+
+## 基础组件
+
+### DI
 
 第一次接触 `DI` 是在 `angularjs 1.x` 中，通过在 `asp.net core` 的使用，我才真的理解了五大基本原则 `S.O.L.I.D` 中 `依赖反转` 的意义以及其在编程中的使用。`DI` 是处在代码最顶层的组合工具，将我们拆分出来的一个个不同的 `object` 有机的组合在一起，使编程更加灵活。虽然可是自己去实现一个简单的 `IoC` 容器，但是要完善就是一个很复杂的工作了，因此暂时选取了 `autofac` 作为 `IoC` 的组件。
 
-## 日志
+### 日志 & 配置
 
-| 接口名称 | 是否实现 | 版本 | 作用 |
-|:---:|:---:|:---:|:---|
-| `ILogger` | `Y` | `1.0.0` | 供用户使用的日志记录器 |
-| `ILoggerFactory` | `Y` | `1.0.0` | 生成不同 `Class` 的 `ILogger` |
-| `ILogContext` | `Y` | `1.0.0` | `ILogger` 生成的一条日志 |
-| `ILoggerWriter` | `Y` | `1.0.0` | 将 `ILogContext` 记录在不同的位置 |
-| `ILogFormat` | `N` | `1.1.0` | `ILoggerWriter` 记录 `ILogContext` 使用的格式 |
+虽然在前面我自己定义和实现了一些日志和配置组件，但是我在使用 `asp.net core` 的过程中，觉得微软现在定义的日志和配置的基础组件非常好用。后面都会在我自己的项目中使用这些基础组件，并且根据自己的需要进行一些扩展定义。如 `D.Utils.Extensions.Logging.RollingFile` 就是对 `Microsoft.Extensions.Logging` 的自定义实现。
 
-## 配置
+## `D.Utils`
+
+### `D.Utils.Result.Abstractions`
+
+通用返回结果组件，有关这个组件后面打算写一篇博客来说说自己的一些看法。
