@@ -19,14 +19,13 @@ namespace Example.Application
                 })
                 .ConfigureLogging((config, logging) =>
                 {
+                    logging.AddConfiguration(config.GetSection("logging"));
                     logging.AddConsole();
                 })
                 .Use<Startup>()
                 .Builde<TestApp>();
 
             app.Run();
-
-            Console.ReadKey();
 
             app.Stop();
 

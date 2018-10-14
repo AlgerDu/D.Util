@@ -18,6 +18,7 @@ namespace D.Utils
         Action<IConfiguration, ILoggingBuilder> _configureLogging;
 
         IStartup _startup;
+        IConfiguration _config;
 
         /// <summary>
         /// .net core 依赖注入容器
@@ -79,14 +80,15 @@ namespace D.Utils
 
             _configureDelegate(configurationBuilder);
 
-            _startup.Configuration = configurationBuilder.Build();
+            _config = configurationBuilder.Build();
+            _startup.Configuration = _config;
 
-            _configureLogging(
-                _startup.Configuration
-                , new DLoggingBuilder { Services = _services }
-                );
+            _services.AddLogging((loggingBuilder) =>
+            {
+                _configureLogging(_config, loggingBuilder);
+            });
 
-            _services.AddLogging();
+            _services.AddSingleton<IConfiguration>(_config);
 
             _services.AddSingleton<IApplication, App>();
 
