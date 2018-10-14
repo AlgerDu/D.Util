@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>D.Utils</RootNamespace>
+    <Authors>AlgerDu</Authors>
+    <Product>D.Utils.Application</Product>
+    <Description>快速的构建初始应用，使用 logging，config和DI</Description>
+    <PackageTags />
+    <PackageProjectUrl>https://github.com/AlgerDu/D.Util</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
