@@ -12,10 +12,10 @@ namespace Example.Application
         static void Main(string[] args)
         {
             var app = new ApplicationBuilder()
-                .ConfigureAppConfiguration((builder) =>
+                .ConfigureAppConfiguration((config) =>
                 {
-                    builder.SetBasePath(Directory.GetCurrentDirectory());
-                    builder.AddJsonFile("appsettings.json");
+                    config.SetBasePath(Directory.GetCurrentDirectory());
+                    config.AddJsonFile("appsettings.json");
                 })
                 .ConfigureLogging((config, logging) =>
                 {
