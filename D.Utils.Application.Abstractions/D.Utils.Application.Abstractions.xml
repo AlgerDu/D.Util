@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>D.Utils.Application.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:D.Utils.ApplicationBuilder">
+            <summary>
+            通用 builder
+            </summary>
+        </member>
+        <member name="P:D.Utils.ApplicationBuilder.Services">
+            <summary>
+            .net core 依赖注入容器
+            </summary>
+        </member>
+        <member name="M:D.Utils.ApplicationBuilder.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:D.Utils.ApplicationBuilder.ConfigureAppConfiguration(System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
+            <summary>
+            加载配置文件
+            </summary>
+            <param name="configureDelegate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:D.Utils.ApplicationBuilder.ConfigureLogging(System.Action{Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <summary>
+            配置日志
+            </summary>
+            <param name="configureLogging"></param>
+            <returns></returns>
+        </member>
+        <member name="M:D.Utils.ApplicationBuilder.Use``1">
+            <summary>
+            使用 Startup
+            </summary>
+            <typeparam name="Startup"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:D.Utils.ApplicationBuilder.Builde``1">
+            <summary>
+            创建 App
+            </summary>
+            <typeparam name="App"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:D.Utils.DLoggingBuilder">
+            <summary>
+            一个尝试
+            </summary>
+        </member>
+        <member name="P:D.Utils.DLoggingBuilder.Services">
+            <summary>
+            服务
+            </summary>
+        </member>
+        <member name="T:D.Utils.IApplication">
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:D.Utils.IApplication.Run">
+            <summary>
+            启动
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:D.Utils.IApplication.Stop">
+            <summary>
+            停止
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:D.Utils.IApplicationBuilder">
+            <summary>
+            app 构建器
+            </summary>
+        </member>
+        <member name="P:D.Utils.IApplicationBuilder.Services">
+            <summary>
+            使用 .net core 自带的容器
+            </summary>
+        </member>
+        <member name="M:D.Utils.IApplicationBuilder.ConfigureAppConfiguration(System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
+            <summary>
+            加载配置文件
+            </summary>
+            <param name="configureDelegate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:D.Utils.IApplicationBuilder.ConfigureLogging(System.Action{Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <summary>
+            配置日志
+            </summary>
+            <param name="configureLogging"></param>
+            <returns></returns>
+        </member>
+        <member name="M:D.Utils.IApplicationBuilder.Use``1">
+            <summary>
+            使用 Startup
+            </summary>
+            <typeparam name="Startup"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:D.Utils.IApplicationBuilder.Builde``1">
+            <summary>
+            构建 app
+            </summary>
+            <typeparam name="App"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:D.Utils.IStartup">
+            <summary>
+            开始，主要是配置
+            </summary>
+        </member>
+        <member name="P:D.Utils.IStartup.LoggerFactory">
+            <summary>
+            日志工厂
+            </summary>
+        </member>
+        <member name="P:D.Utils.IStartup.Configuration">
+            <summary>
+            配置
+            </summary>
+        </member>
+        <member name="M:D.Utils.IStartup.ConfigService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            配置依赖注入
+            </summary>
+            <param name="service"></param>
+        </member>
+    </members>
+</doc>
