@@ -92,9 +92,10 @@ namespace D.Utils
 
             _services.AddSingleton<IApplication, App>();
 
-            _startup.ConfigService(_services);
+            var provider = _startup.ConfigService(_services);
 
-            var provider = _services.BuildServiceProvider();
+            if (provider == null)
+                provider = _services.BuildServiceProvider();
 
             return provider.GetService<IApplication>() as App;
         }

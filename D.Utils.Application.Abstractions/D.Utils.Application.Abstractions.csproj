@@ -8,6 +8,7 @@
     <Description>快速的构建初始应用，使用 logging，config和DI</Description>
     <PackageTags />
     <PackageProjectUrl>https://github.com/AlgerDu/D.Util</PackageProjectUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

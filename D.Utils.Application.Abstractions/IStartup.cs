@@ -26,6 +26,6 @@ namespace D.Utils
         /// 配置依赖注入
         /// </summary>
         /// <param name="service"></param>
-        void ConfigService(IServiceCollection service);
+        IServiceProvider ConfigService(IServiceCollection service);
     }
 }
