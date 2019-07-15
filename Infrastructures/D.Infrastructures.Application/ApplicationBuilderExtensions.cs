@@ -57,12 +57,16 @@ namespace D.Infrastructures
         public static IApplicationBuilder UseStartup<T>(
             this IApplicationBuilder applicationBuilder
             )
-            where T : class, new()
+            where T : class
         {
-            var startupInstance = new T();
-
             applicationBuilder.ConfigureServices(collection =>
             {
+                collection.AddTransient<T>();
+
+                var provider = collection.BuildServiceProvider();
+
+                var startupInstance = provider.GetService<T>();
+
                 typeof(T).InvokeMember(
                     "ConfigureServices"
                     , System.Reflection.BindingFlags.InvokeMethod
