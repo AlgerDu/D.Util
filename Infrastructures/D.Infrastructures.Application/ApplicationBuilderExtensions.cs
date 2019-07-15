@@ -68,7 +68,7 @@ namespace D.Infrastructures
                 var startupInstance = provider.GetService<T>();
 
                 typeof(T).InvokeMember(
-                    "ConfigureServices"
+                    "ConfigServices"
                     , System.Reflection.BindingFlags.InvokeMethod
                     , null
                     , startupInstance

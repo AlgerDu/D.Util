@@ -12,7 +12,7 @@ namespace D.Examples.App.Console
 
         public void ConfigServices(IServiceCollection services)
         {
-            services.AddTransient<IRunable, ServiceA>();
+            services.AddSingleton<IRunnable, ServiceA>();
         }
 
         public void ConfigServices(ContainerBuilder builder)

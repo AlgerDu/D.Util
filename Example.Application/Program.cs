@@ -33,16 +33,6 @@ namespace Example.Application
         }
     }
 
-    class Startup : IStartup
-    {
-        public ILoggerFactory LoggerFactory { get; set; }
-        public IConfiguration Configuration { get; set; }
-
-        public void ConfigService(IServiceCollection service)
-        {
-        }
-    }
-
     class TestApp : IApplication
     {
         ILogger _logger;

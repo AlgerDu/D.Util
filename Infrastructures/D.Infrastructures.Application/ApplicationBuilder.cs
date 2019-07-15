@@ -18,7 +18,11 @@ namespace D.Infrastructures
 
         public ApplicationBuilder()
         {
-            _hostingEnvironment = new HostingEnvironment();
+            _hostingEnvironment = new HostingEnvironment()
+            {
+                ContentRootPath = AppContext.BaseDirectory,
+                AppRootPath = AppContext.BaseDirectory
+            };
 
             _config = new ConfigurationBuilder()
                 .Build();
