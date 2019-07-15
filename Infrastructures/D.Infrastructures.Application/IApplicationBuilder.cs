@@ -24,14 +24,14 @@ namespace D.Infrastructures
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        IApplicationBuilder ConfigureServices(Action<ApplicationBuilderContext, IServiceCollection> action);
+        IApplicationBuilder ConfigureServices(Action<ApplicationBuilderContext, IServiceCollection> configureServices);
 
         /// <summary>
         /// 给应用容器注入服务（可以被多次调用）
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        IApplicationBuilder ConfigureServices(Action<IServiceCollection> action);
+        IApplicationBuilder ConfigureServices(Action<IServiceCollection> configureServices);
 
         /// <summary>
         /// 构造一个 App
