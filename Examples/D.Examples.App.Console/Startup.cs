@@ -38,7 +38,9 @@ namespace D.Examples.App.Console
 
         public void ConfigServices(ContainerBuilder builder)
         {
-
+            builder.RegisterType<ServiceB>()
+                .As<IRunnable>()
+                .AsSelf();
         }
     }
 }
