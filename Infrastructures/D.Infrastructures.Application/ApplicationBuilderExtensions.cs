@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using D.Infrastructures.Application;
 
@@ -67,13 +68,19 @@ namespace D.Infrastructures
 
                 var startupInstance = provider.GetService<T>();
 
-                typeof(T).InvokeMember(
-                    "ConfigServices"
-                    , System.Reflection.BindingFlags.InvokeMethod
-                    , null
-                    , startupInstance
-                    , new object[] { collection }
-                    );
+                var startupType = typeof(T);
+
+                var members = from m in startupType.GetMethods()
+                              where m.IsPublic && !m.IsStatic
+                                 && m.GetParameters().Length == 1
+                                 && m.GetParameters()[0].ParameterType.IsAssignableFrom(collection.GetType())
+                              select m;
+
+                foreach (var m in members)
+                {
+                    m.Invoke(startupInstance, new object[] { collection });
+                }
+
             });
 
             return applicationBuilder;
