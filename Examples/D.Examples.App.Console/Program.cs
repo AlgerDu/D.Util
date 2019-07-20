@@ -24,7 +24,8 @@ namespace D.Examples.App.Console
                 {
                     logging.AddConsole();
                 })
-                .UseStartup<Startup>()
+                .UseStartupWithAutofac<Startup>()
+                //.UseStartup<Startup>()
                 .Builde<SampleApp>();
 
             app.Run();
