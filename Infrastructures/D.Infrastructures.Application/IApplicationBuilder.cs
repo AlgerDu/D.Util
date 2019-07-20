@@ -33,6 +33,8 @@ namespace D.Infrastructures
         /// <returns></returns>
         IApplicationBuilder ConfigureServices(Action<IServiceCollection> configureServices);
 
+        IApplicationBuilder ConfigureProviderFactory(Func<IServiceCollection, IServiceProvider> createProvider);
+
         /// <summary>
         /// 构造一个 App
         /// </summary>

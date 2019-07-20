@@ -15,6 +15,7 @@ namespace D.Infrastructures
         private IConfiguration _config;
         private ApplicationBuilderContext _context;
         private Action<ApplicationBuilderContext, IConfigurationBuilder> _configureAppConfigurationBuilder;
+        private Func<IServiceCollection, IServiceProvider> _createProvider;
 
         public ApplicationBuilder()
         {
@@ -57,7 +58,9 @@ namespace D.Infrastructures
 
             hostingServices.AddTransient<App>();
 
-            var provider = hostingServices.BuildServiceProvider();
+            //var provider = hostingServices.BuildServiceProvider();
+
+            var provider = GetProviderFromFactory(hostingServices);
 
             return provider.GetService<App>();
         }
@@ -89,6 +92,12 @@ namespace D.Infrastructures
             return services;
         }
 
+        public IApplicationBuilder ConfigureProviderFactory(Func<IServiceCollection, IServiceProvider> createProvider)
+        {
+            _createProvider = createProvider;
+            return this;
+        }
+
         //private string ResolveContentRootPath(string contentRootPath, string basePath)
         //{
         //    if (string.IsNullOrEmpty(contentRootPath))
@@ -101,5 +110,17 @@ namespace D.Infrastructures
         //    }
         //    return Path.Combine(Path.GetFullPath(basePath), contentRootPath);
         //}
+
+        IServiceProvider GetProviderFromFactory(IServiceCollection collection)
+        {
+            var provider = collection.BuildServiceProvider();
+
+            if (_createProvider != null)
+            {
+                return _createProvider(collection);
+            }
+
+            return provider;
+        }
     }
 }
