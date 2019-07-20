@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace D.Infrastructures
 {
+    /// <summary>
+    /// IApplicationBuilder 接口的基本实现
+    /// </summary>
     public class ApplicationBuilder : IApplicationBuilder
     {
         private readonly HostingEnvironment _hostingEnvironment;
@@ -17,6 +20,9 @@ namespace D.Infrastructures
         private Action<ApplicationBuilderContext, IConfigurationBuilder> _configureAppConfigurationBuilder;
         private Func<IServiceCollection, IServiceProvider> _createProvider;
 
+        /// <summary>
+        /// 无参构造方法
+        /// </summary>
         public ApplicationBuilder()
         {
             _hostingEnvironment = new HostingEnvironment()
@@ -35,23 +41,43 @@ namespace D.Infrastructures
             };
         }
 
+        /// <summary>
+        /// 设置 app 配置读取 action
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public IApplicationBuilder ConfigureAppConfiguration(Action<ApplicationBuilderContext, IConfigurationBuilder> action)
         {
             _configureAppConfigurationBuilder += action;
             return this;
         }
 
+        /// <summary>
+        /// 设置依赖注入的 action
+        /// </summary>
+        /// <param name="configureServices"></param>
+        /// <returns></returns>
         public IApplicationBuilder ConfigureServices(Action<ApplicationBuilderContext, IServiceCollection> configureServices)
         {
             _configureServices += configureServices;
             return this;
         }
 
+        /// <summary>
+        /// 设置依赖注入的 action
+        /// </summary>
+        /// <param name="configureServices"></param>
+        /// <returns></returns>
         public IApplicationBuilder ConfigureServices(Action<IServiceCollection> configureServices)
         {
             return ConfigureServices((_, services) => configureServices(services));
         }
 
+        /// <summary>
+        /// 构造 app
+        /// </summary>
+        /// <typeparam name="App"></typeparam>
+        /// <returns></returns>
         App IApplicationBuilder.Builde<App>()
         {
             var hostingServices = BuildCommonServices(out var hostingStartupErrors);
@@ -63,6 +89,17 @@ namespace D.Infrastructures
             var provider = GetProviderFromFactory(hostingServices);
 
             return provider.GetService<App>();
+        }
+
+        /// <summary>
+        /// 设置构造 provider 的函数
+        /// </summary>
+        /// <param name="createProvider"></param>
+        /// <returns></returns>
+        public IApplicationBuilder ConfigureProviderFactory(Func<IServiceCollection, IServiceProvider> createProvider)
+        {
+            _createProvider = createProvider;
+            return this;
         }
 
         private IServiceCollection BuildCommonServices(out AggregateException hostingStartupErrors)
@@ -92,26 +129,7 @@ namespace D.Infrastructures
             return services;
         }
 
-        public IApplicationBuilder ConfigureProviderFactory(Func<IServiceCollection, IServiceProvider> createProvider)
-        {
-            _createProvider = createProvider;
-            return this;
-        }
-
-        //private string ResolveContentRootPath(string contentRootPath, string basePath)
-        //{
-        //    if (string.IsNullOrEmpty(contentRootPath))
-        //    {
-        //        return basePath;
-        //    }
-        //    if (Path.IsPathRooted(contentRootPath))
-        //    {
-        //        return contentRootPath;
-        //    }
-        //    return Path.Combine(Path.GetFullPath(basePath), contentRootPath);
-        //}
-
-        IServiceProvider GetProviderFromFactory(IServiceCollection collection)
+        private IServiceProvider GetProviderFromFactory(IServiceCollection collection)
         {
             var provider = collection.BuildServiceProvider();
 

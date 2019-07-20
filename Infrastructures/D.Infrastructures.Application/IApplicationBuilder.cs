@@ -33,6 +33,11 @@ namespace D.Infrastructures
         /// <returns></returns>
         IApplicationBuilder ConfigureServices(Action<IServiceCollection> configureServices);
 
+        /// <summary>
+        /// 配置生成 provider 的 func ，用来达到可以使用其它依赖注入容器的使用，暂时只能想到这样实现了
+        /// </summary>
+        /// <param name="createProvider"></param>
+        /// <returns></returns>
         IApplicationBuilder ConfigureProviderFactory(Func<IServiceCollection, IServiceProvider> createProvider);
 
         /// <summary>
