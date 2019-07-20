@@ -3,6 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>D.Infrastructures</RootNamespace>
+    <Authors>AlgerDu</Authors>
+    <Product>D.Infrastructures</Product>
+    <Description>用于快速的搭建应用，使用微软 Microsoft.Extensions 相关基础库。</Description>
+    <RepositoryUrl>https://github.com/AlgerDu/D.Util</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags />
+    <PackageReleaseNotes />
   </PropertyGroup>
 
   <ItemGroup>
