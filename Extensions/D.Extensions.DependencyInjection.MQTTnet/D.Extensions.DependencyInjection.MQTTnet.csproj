@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>D.Extensions.DependencyInjection</RootNamespace>
+    <Authors>AlgerDu</Authors>
+    <Product>D.Extensions</Product>
+    <Description>通过 IServiceCollction 注入 MQTTnet。</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>.\bin\D.Extensions.DependencyInjection.MQTTnet.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>.\bin\D.Extensions.DependencyInjection.MQTTnet.xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>
